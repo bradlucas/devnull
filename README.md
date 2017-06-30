@@ -1,16 +1,14 @@
 # devnull
 
-A Clojure library designed to ... 
+For testing it is sometimes of interest to have a web service which returns OK for anything that is passed to it much like the null device in Unix. In Unix you can open open the `/dev/null` device and write to it. It is an empty file that accepts all data written to it without storing the data.
 
-Server you can post anything to and get a 200 back
+For a web service to act in a similar fashion it would run and accept anything passed as a parameter in urls passed to it.
 
-## Usage
+Example program from the following post.
 
-FIXME
+[http://blog.bradlucas.com/posts/2017-06-30-devnull/](http://blog.bradlucas.com/posts/2017-06-30-devnull/)
 
 ## License
 
-Copyright © 2017 FIXME
+Copyright © 2017 Brad Lucas
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
