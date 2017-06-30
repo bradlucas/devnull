@@ -1,19 +1,11 @@
 (ns devnull.core
-  (:require [org.httpkit.server :as httpd]))
+  (:require [org.httpkit.server :as server]))
 
 (defonce server (atom nil))
 
-(defn stop-server []
-  (when-not (nil? @server)
-    ;; graceful shutdown: wait 100ms for existing requests to be finished
-    ;; :timeout is optional, when no timeout, stop immediately
-    (println "Stopping server")
-    (@server :timeout 100)
-    (reset! server nil)))
-
 ;; http://www.http-kit.org/server.html
 
-(defn app [req]
+(defn handler [req]
   {:status 200
    :headers {"Context-Type" "text/html"}
    :body "OK"})
@@ -22,7 +14,15 @@
   ;; The #' is useful when you want to hot-reload code
   ;; You may want to take a look: https://github.com/clojure/tools.namespace
   ;; and http://http-kit.org/migration.html#reload
-  (reset! server (httpd/run-server #'app {:port 8080})))
+  (reset! server (server/run-server #'handler {:port 8080})))
+
+(defn stop-server []
+  (when-not (nil? @server)
+    ;; graceful shutdown: wait 100ms for existing requests to be finished
+    ;; :timeout is optional, when no timeout, stop immediately
+    (println "Stopping server")
+    (@server :timeout 100)
+    (reset! server nil)))
 
 (defn shutdown-hook
   [fn]
